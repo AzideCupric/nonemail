@@ -1,20 +1,23 @@
 [tool.poetry]
-name = "Project Name"
+name = "nonebot-driver-email"
 version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+description = "基于 aiosmtplib 和 aioimaplib 的 Nonebot 邮件驱动"
+authors = ["AzideCupric <rukuy@qq.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = ""
-repository = ""
-documentation = ""
+homepage = "https://github.com/AzideCupric/nonebot-driver-email/README.md"
+repository = "https://github.com/AzideCupric/nonebot-driver-email"
+documentation = "https://github.com/AzideCupric/nonebot-driver-email/docs"
 keywords = []
 classifiers = []
 
 [tool.poetry.dependencies]
 python = "^3.8"
+nonebot2 = "^2.0.1"
+aiosmtplib = "^2.0.2"
+aioimaplib = "^1.0.1"
 
-[tool.poetry.group.dev.dependencies]
+[tool.poetry.group.lint.dependencies]
 ruff = "^0.0.275"
 isort = "^5.10.1"
 black = "^23.1.0"
@@ -22,6 +25,7 @@ nonemoji = "^0.1.2"
 pre-commit = "^3.1.0"
 
 [tool.black]
+preview = true
 line-length = 88
 target-version = ["py38", "py39", "py310", "py311"]
 include = '\.pyi?$'
