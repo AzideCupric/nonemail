@@ -1,8 +1,13 @@
 from ssl import SSLContext
-from aioimaplib import IMAP4 as IMAP4_BASE, IMAP4_SSL
-from dataclasses import dataclass, KW_ONLY
+from aioimaplib import (
+    IMAP4 as IMAP4_BASE,
+    IMAP4_SSL,
+    Response as ImapResponse,
+    Command,
+)
+from dataclasses import dataclass
 
-from .mailing import Request as BaseRequest, Response as BaseResponse
+from .mailing import Request as BaseRequest
 from .ability import ConnectAbility, ReceiveAbility, MailBoxOperateAbility
 
 
@@ -16,10 +21,14 @@ class ConnectReq(BaseRequest):
     password: str
 
 
-class IMAP4(ConnectAbility, ReceiveAbility, MailBoxOperateAbility):
+class AIOIMAP4(ConnectAbility, ReceiveAbility, MailBoxOperateAbility):
     @property
     def protocol(self) -> str:
         return "IMAP4"
+
+    @property
+    async def impl(self):
+        return self.client
 
     async def connect(
         self,
@@ -40,5 +49,12 @@ class IMAP4(ConnectAbility, ReceiveAbility, MailBoxOperateAbility):
                 host=request.server,
                 port=request.port,
                 timeout=timeout,
-                ssl_context=ssl_content, # type: ignore
+                ssl_context=ssl_content,  # type: ignore
             )
+
+    async def receive(self, timeout: int = 30) -> ImapResponse:
+        return await self.client.wait_server_push(timeout=timeout)
+
+    async def operate(self, cmd: Command) -> ImapResponse:
+        assert self.client.protocol is not None
+        return await self.client.protocol.execute(cmd)

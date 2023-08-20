@@ -1,15 +1,11 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
 Domain = str
 
 class Request(ABC):
     """请求类"""
-    @abstractmethod
-    def __init__(self, **kwargs):
-        raise NotImplementedError
+    pass
 
 class Response(ABC):
     """响应类"""
-    @abstractmethod
-    def __init__(self, **kwargs):
-        raise NotImplementedError
+    pass
