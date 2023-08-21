@@ -15,12 +15,14 @@ class SendReq(BaseRequest):
         *,
         message: EmailMessage,
         password: str,
+        use_tls: bool = True,
         **kwargs,
     ):
         self.server = server
         self.port = port
         self.message = message
         self.password = password
+        self.use_tls = use_tls
         self.kwargs = kwargs
 
     def __repr__(self) -> str:
@@ -52,5 +54,6 @@ class AIOSMTP(SendAbility):
             username=request.kwargs.get("username", None)
             or request.message["From"].split("@")[0],
             password=request.password,
+            use_tls=request.use_tls,
             **request.kwargs,
         )

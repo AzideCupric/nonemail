@@ -1,4 +1,5 @@
 from ssl import SSLContext
+from asyncio import AbstractEventLoop
 from aioimaplib import (
     IMAP4 as IMAP4_BASE,
     IMAP4_SSL,
@@ -19,6 +20,10 @@ class ConnectReq(BaseRequest):
     port: int
     username: str
     password: str
+    timeout: int = 30
+    ssl: bool = True
+    ssl_content: SSLContext | None = None
+    loop: AbstractEventLoop | None = None
 
 
 class AIOIMAP4(ConnectAbility, ReceiveAbility, MailBoxOperateAbility):
@@ -27,34 +32,36 @@ class AIOIMAP4(ConnectAbility, ReceiveAbility, MailBoxOperateAbility):
         return "IMAP4"
 
     @property
-    async def impl(self):
-        return self.client
+    def impl(self):
+        return self._client
 
     async def connect(
         self,
         request: ConnectReq,
-        timeout: int = 30,
-        ssl: bool = True,
-        ssl_content: SSLContext | None = None,
-    ) -> None:
-        if ssl:
-            self.client = IMAP4_SSL(
+    ):
+        if request.ssl:
+            self._client = IMAP4_SSL(
                 host=request.server,
                 port=request.port,
-                timeout=timeout,
-                ssl_context=ssl_content,  # type: ignore
+                timeout=request.timeout,
+                ssl_context=request.ssl_content,  # type: ignore
             )
         else:
-            self.client = IMAP4_BASE(
+            self._client = IMAP4_BASE(
                 host=request.server,
                 port=request.port,
-                timeout=timeout,
-                ssl_context=ssl_content,  # type: ignore
+                timeout=request.timeout,
+                ssl_context=request.ssl_content,  # type: ignore
+                loop=request.loop, # type: ignore
             )
 
+        await self._client.wait_hello_from_server()
+        await self._client.login(request.username, request.password)
+        return self
+
     async def receive(self, timeout: int = 30) -> ImapResponse:
-        return await self.client.wait_server_push(timeout=timeout)
+        return await self._client.wait_server_push(timeout=timeout)
 
     async def operate(self, cmd: Command) -> ImapResponse:
-        assert self.client.protocol is not None
-        return await self.client.protocol.execute(cmd)
+        assert self._client.protocol is not None
+        return await self._client.protocol.execute(cmd)

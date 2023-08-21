@@ -19,6 +19,7 @@ python = "^3.8"
 nonebot2 = "^2.0.1"
 aiosmtplib = "^2.0.2"
 aioimaplib = "^1.0.1"
+fast-mail-parser = "^0.2.5"
 
 [tool.poetry.group.lint.dependencies]
 ruff = "^0.0.275"
