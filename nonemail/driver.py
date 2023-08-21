@@ -10,8 +10,8 @@ from nonebot.drivers import (
 )
 from nonebot.internal.driver.model import Request, Response
 
-from .model.aioimap4 import AIOIMAP4, ConnectReq
-from .model.aiosmtp import AIOSMTP
+from .procotol.aioimap4 import AIOIMAP4, ConnectReq
+from .procotol.aiosmtp import AIOSMTP
 
 class Email(AIOSMTP, AIOIMAP4):
 
