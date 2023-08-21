@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "nonebot-driver-email"
+name = "nonemail"
 version = "0.1.0"
-description = "基于 aiosmtplib 和 aioimaplib 的 Nonebot 邮件驱动"
+description = "Email收发协议集成"
 authors = ["AzideCupric <rukuy@qq.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/AzideCupric/nonebot-driver-email/README.md"
-repository = "https://github.com/AzideCupric/nonebot-driver-email"
-documentation = "https://github.com/AzideCupric/nonebot-driver-email/docs"
+homepage = "https://github.com/AzideCupric/nonemail/README.md"
+repository = "https://github.com/AzideCupric/nonemail"
+documentation = "https://github.com/AzideCupric/nonemail/docs"
 keywords = []
 classifiers = []
 packages = [
