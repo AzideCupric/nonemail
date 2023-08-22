@@ -65,3 +65,11 @@ class AIOIMAP4(ConnectAbility, ReceiveAbility, MailBoxOperateAbility):
     async def operate(self, cmd: Command) -> ImapResponse:
         assert self._client.protocol is not None
         return await self._client.protocol.execute(cmd)
+
+    async def idle_start(self, timeout: int = 30):
+
+        return await self.impl.idle_start(timeout=timeout)
+
+    def idle_done(self):
+
+        return self.impl.idle_done()
