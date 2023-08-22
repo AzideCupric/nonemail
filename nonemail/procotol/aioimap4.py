@@ -21,6 +21,7 @@ class ConnectReq(BaseRequest):
     username: str
     password: str
     timeout: int = 30
+    mailbox: str = "INBOX"
     ssl: bool = True
     ssl_content: SSLContext | None = None
     loop: AbstractEventLoop | None = None
