@@ -28,8 +28,8 @@ class ConnectReq(BaseRequest):
 
 class AIOIMAP4(ConnectAbility, ReceiveAbility, MailBoxOperateAbility):
     @property
-    def protocol(self) -> str:
-        return "IMAP4"
+    def sub_protocol(self) -> str:
+        return "AIOIMAP4"
 
     @property
     def impl(self):
@@ -38,7 +38,7 @@ class AIOIMAP4(ConnectAbility, ReceiveAbility, MailBoxOperateAbility):
     async def connect(
         self,
         request: ConnectReq,
-    ):
+    ) -> "AIOIMAP4":
         if request.ssl:
             self._client = IMAP4_SSL(
                 host=request.server,

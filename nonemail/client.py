@@ -10,6 +10,12 @@ class EmailClient(AIOSMTP, AIOIMAP4):
     def __init__(self, connect_req: ConnectReq):
         self.connect_req = connect_req
 
+    @property
+    def procotol(self) -> str:
+        return (
+            f"{super(AIOIMAP4, self).sub_protocol}+{super(AIOSMTP, self).sub_protocol}"
+        )
+
     async def close(self) -> None:
         await self.impl.logout()
 

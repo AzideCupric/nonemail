@@ -6,7 +6,7 @@ class SendAbility(ABC):
 
     @property
     @abstractmethod
-    def protocol(self) -> str:
+    def sub_protocol(self) -> str:
         """协议名称"""
         raise NotImplementedError
 
@@ -20,7 +20,7 @@ class ReceiveAbility(ABC):
 
     @property
     @abstractmethod
-    def protocol(self) -> str:
+    def sub_protocol(self) -> str:
         """协议名称"""
         raise NotImplementedError
 
@@ -34,7 +34,7 @@ class ConnectAbility(ABC):
 
     @property
     @abstractmethod
-    def protocol(self) -> str:
+    def sub_protocol(self) -> str:
         """协议名称"""
         raise NotImplementedError
 
@@ -48,7 +48,7 @@ class MailBoxOperateAbility(ABC):
 
     @property
     @abstractmethod
-    def protocol(self) -> str:
+    def sub_protocol(self) -> str:
         """协议名称"""
         raise NotImplementedError
 
