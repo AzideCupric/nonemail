@@ -41,7 +41,7 @@ class AIOSMTP(SendAbility):
     """SMTP协议异步实现"""
 
     @property
-    def sub_protocol(self) -> str:
+    def sub_procotol(self) -> str:
         return "AIOSMTP"
 
     async def send(self, request: SendReq) -> None:

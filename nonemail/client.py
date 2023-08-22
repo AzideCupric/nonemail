@@ -13,7 +13,7 @@ class EmailClient(AIOSMTP, AIOIMAP4):
     @property
     def procotol(self) -> str:
         return (
-            f"{super(AIOIMAP4, self).sub_protocol}+{super(AIOSMTP, self).sub_protocol}"
+            f"{super(AIOIMAP4, self).sub_procotol}+{super(AIOSMTP, self).sub_procotol}"
         )
 
     async def close(self) -> None:

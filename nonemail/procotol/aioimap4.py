@@ -28,7 +28,7 @@ class ConnectReq(BaseRequest):
 
 class AIOIMAP4(ConnectAbility, ReceiveAbility, MailBoxOperateAbility):
     @property
-    def sub_protocol(self) -> str:
+    def sub_procotol(self) -> str:
         return "AIOIMAP4"
 
     @property
