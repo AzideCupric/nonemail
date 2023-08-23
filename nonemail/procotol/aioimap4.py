@@ -61,11 +61,14 @@ class AIOIMAP4(ConnectAbility, ReceiveAbility, MailBoxOperateAbility):
         return self
 
     async def receive(self, timeout: int = 30) -> ImapResponse:
-        return await self._client.wait_server_push(timeout=timeout)
+        return await self.impl.wait_server_push(timeout=timeout)
 
     async def operate(self, cmd: Command) -> ImapResponse:
-        assert self._client.protocol is not None
-        return await self._client.protocol.execute(cmd)
+        assert self.impl.protocol is not None
+        return await self.impl.protocol.execute(cmd)
+
+    async def select(self, mailbox: str = "INBOX") -> ImapResponse:
+        return await self.impl.select(mailbox)
 
     async def idle_start(self, timeout: int = 30):
 

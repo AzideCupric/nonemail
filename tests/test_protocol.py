@@ -21,7 +21,7 @@ async def test_aipimap4():
     imap = AIOIMAP4()
     client = await imap.connect(connect_req)
 
-    await client.impl.enable("UTF8=ACCEPT")
+    # await client.impl.enable("UTF8=ACCEPT")
     res = await client.impl.select("INBOX")
     print(res)
 
@@ -34,7 +34,7 @@ async def test_aipimap4():
     # print(dumps(parsed_eml.headers, indent=4, ensure_ascii=False))
     # print(parsed_eml.text_plain)
 
-    email = await client.impl.uid("1", "RFC822")
+    email = await client.impl.fetch("3085", "BODY[HEADER]")
     parser = parser.BytesParser()
     raw_email = parser.parsebytes(email.lines[1])
     await client.impl.logout()

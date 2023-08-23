@@ -21,6 +21,7 @@ class EmailClient(AIOSMTP, AIOIMAP4):
 
     async def startup(self):
         await self.connect(self.connect_req)
+        await self.select(self.connect_req.mailbox)
         return self
 
     async def __aenter__(self) -> Self:
