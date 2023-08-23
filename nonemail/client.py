@@ -31,6 +31,7 @@ class EmailClient(AIOSMTP, AIOIMAP4):
         self, ExceptionType: type[Exception], value: str, traceback: TracebackType
     ):
         if not isinstance(ExceptionType, NoneType):
+            await self.impl.close()
             raise ExceptionType(value)
 
         await self.close()
