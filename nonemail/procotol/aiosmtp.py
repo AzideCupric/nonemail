@@ -51,7 +51,7 @@ class AIOSMTP(SendAbility):
             recipients=request.kwargs.get("recipients", None),
             hostname=request.server,
             port=request.port,
-            username=request.kwargs.get("username", None)
+            username=request.kwargs.pop("username", None)
             or request.message["From"].split("@")[0],
             password=request.password,
             use_tls=request.use_tls,
