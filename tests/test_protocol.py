@@ -23,8 +23,7 @@ async def test_aipimap4():
 
     # await client.impl.enable("UTF8=ACCEPT")
     res = await client.impl.select("INBOX")
-    print(res)
-
+    assert res.result == "OK"
     # email = await client.impl.fetch("1", "BODY[HEADER]")
     # parser = parser.BytesParser()
     # raw_email = parser.parsebytes(email.lines[1])

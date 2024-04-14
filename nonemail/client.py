@@ -28,7 +28,10 @@ class EmailClient(AIOSMTP, AIOIMAP4):
         return await self.startup()
 
     async def __aexit__(
-        self, ExceptionType: type[Exception], value: str, traceback: TracebackType
+        self,
+        ExceptionType: type[BaseException] | None,
+        value: BaseException | None,
+        traceback: TracebackType | None,
     ):
         if not isinstance(ExceptionType, NoneType):
             await self.impl.close()
