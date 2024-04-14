@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonemail"
-version = "0.2.0"
+version = "0.2.4"
 description = "Email收发协议集成"
 authors = ["AzideCupric <rukuy@qq.com>"]
 license = "MIT"
