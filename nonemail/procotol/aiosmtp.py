@@ -11,7 +11,7 @@ class SendReq(BaseRequest):
     def __init__(
         self,
         server: Domain,
-        port: int,
+        port: int | None = None,
         *,
         message: EmailMessage,
         password: str,
